@@ -1,17 +1,13 @@
-
-import { Button } from "flowbite-react";
 import './App.css';
+import Header from './components/Header';
+import RouterConfig from "./Router/RouterConfig";
 
 function App() {
-
-
   return (
     <>
       <div>
-
-
-        <Button>Click me</Button>;
-
+        <Header />
+        <RouterConfig />
       </div>
     </>
   );
