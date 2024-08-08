@@ -3,7 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import DarkMode from './DarkMode';
+//import DarkMode from './DarkMode';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -16,10 +16,10 @@ const Header = () => {
     };
     return (
         <>
-            <div className='flex flex-row '>
+            <div className='flex flex-row pb-10 '>
                 <AppBar sx={{
                     background: 'linear-gradient(to right, #a0f1a1, #064e3b)',
-                }} position="static">
+                }} position="fixed">
                     <Toolbar className='flex flex-row justify-between items-center'>
                         <div className='flex flex-row gap-3 items-center justify-center'>
                             <img src="../../images/eminlogo.png" onClick={() => navigate("/")} className='h-6 mr-3 cursor-pointer' />
@@ -40,13 +40,13 @@ const Header = () => {
                             </Typography>
                         </div>
                         <div className='sm:flex md:flex flex-row gap-4 sm:gap-8 hidden '>
-                            <button onClick={() => navigate("/about-us")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
-                            <button onClick={() => navigate("/login")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
-                            <button onClick={() => navigate("/register")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 ' color="inherit">Kayıt Ol</button>
-                            <DarkMode />
+                            <button onClick={() => navigate("/about-us")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500' >Hakkımızda</button>
+                            <button onClick={() => navigate("/login")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 '>Giriş Yap</button>
+                            <button onClick={() => navigate("/register")} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">Kayıt Ol</button>
+                            {/* <DarkMode /> */}
                         </div>
                         <div className='sm:hidden'>
-                            <DarkMode />
+                            {/* <DarkMode /> */}
                         </div>
                     </Toolbar>
                 </AppBar>

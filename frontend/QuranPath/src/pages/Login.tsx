@@ -4,8 +4,10 @@ const Login = () => {
     const navigate = useNavigate();
     return (
         <div>
-            <div className="w-full min-h-screen bg-white dark:bg-gray-800 flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-                <div className="w-full sm:max-w-md p-5 mx-auto">
+            <div className='w-full min-h-screen bg-black dark:bg-gray-800 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 
+            bg-cover bg-no-repeat bg-center
+            bg-[url("../../images/login.jpg")]'>
+                <div className="w-full sm:max-w-md p-10 mx-auto bg-neutral-300 opacity-90">
                     <h2 className="mb-12 text-center text-4xl font-extrabold">Hoşgeldiniz.</h2>
                     <form>
                         <div className="mb-4">
