@@ -22,7 +22,7 @@ const Header = () => {
                 }} position="static">
                     <Toolbar className='flex flex-row justify-between items-center'>
                         <div className='flex flex-row gap-3 items-center justify-center'>
-                            <img src="../../images/eminlogo.png" onClick={() => navigate("/")} className='h-6 mr-3 ' />
+                            <img src="../../images/eminlogo.png" onClick={() => navigate("/")} className='h-6 mr-3 cursor-pointer' />
                             <IconButton
                                 size="large"
                                 edge="start"
@@ -52,11 +52,11 @@ const Header = () => {
                 </AppBar>
             </div>
             {
-                isOpen && (<div className='flex flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3'>
+                isOpen && (<div className='flex flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3 ' >
                     <div className='w-6/12 flex flex-col gap-3'>
-                        <button onClick={() => navigate("/about-us")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
-                        <button onClick={() => navigate("/login")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
-                        <button onClick={() => navigate("/register")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 ' color="inherit">Kayıt Ol</button>
+                        <button onClick={() => navigate("/about-us")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
+                        <button onClick={() => navigate("/login")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
+                        <button onClick={() => navigate("/register")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 ' color="inherit">Kayıt Ol</button>
 
                     </div>
                 </div>)
