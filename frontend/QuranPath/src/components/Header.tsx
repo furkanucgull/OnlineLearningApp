@@ -52,7 +52,7 @@ const Header = () => {
                 </AppBar>
             </div>
             {
-                isOpen && (<div className='flex flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3 ' >
+                isOpen && (<div className='flex flex-col gap-3 text-white mt-6 justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3 ' >
                     <div className='w-6/12 flex flex-col gap-3'>
                         <button onClick={() => navigate("/about-us")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
                         <button onClick={() => navigate("/login")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
