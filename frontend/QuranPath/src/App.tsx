@@ -1,4 +1,5 @@
 
+import { Button } from "flowbite-react";
 import './App.css';
 
 function App() {
@@ -7,7 +8,10 @@ function App() {
   return (
     <>
       <div>
-        Div
+
+
+        <Button>Click me</Button>;
+
       </div>
     </>
   );
