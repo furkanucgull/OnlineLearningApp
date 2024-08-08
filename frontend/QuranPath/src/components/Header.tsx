@@ -16,7 +16,7 @@ const Header = () => {
     };
     return (
         <>
-            <div className='flex flex-row'>
+            <div className='flex flex-row '>
                 <AppBar sx={{
                     background: 'linear-gradient(to right, #a0f1a1, #064e3b)',
                 }} position="static">
@@ -39,12 +39,15 @@ const Header = () => {
                                 <button onClick={() => navigate("/")} className='border-b-1 hover:text-white border-b-green-700 hover:bg-green-800 hover:shadow-2xl duration-300 rounded-xl px-4 ' >Ana Sayfa</button>
                             </Typography>
                         </div>
-                        <div className='sm:flex md:flex flex-row gap-4 sm:gap-8 hidden'>
+                        <div className='sm:flex md:flex flex-row gap-4 sm:gap-8 hidden '>
                             <button onClick={() => navigate("/about-us")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
                             <button onClick={() => navigate("/login")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
                             <button onClick={() => navigate("/register")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 ' color="inherit">Kayıt Ol</button>
+                            <DarkMode />
                         </div>
-                        <DarkMode />
+                        <div className='sm:hidden'>
+                            <DarkMode />
+                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -54,9 +57,11 @@ const Header = () => {
                         <button onClick={() => navigate("/about-us")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
                         <button onClick={() => navigate("/login")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
                         <button onClick={() => navigate("/register")} className='border px-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 ' color="inherit">Kayıt Ol</button>
+
                     </div>
                 </div>)
             }
+
         </>
     );
 };
