@@ -35,11 +35,12 @@ const Header = () => {
                                     </button>
                                 </div>
                             </IconButton>
-                            <Typography variant="h6" >
-                                <button onClick={() => navigate("/")} className='border-b-1 hover:text-white border-b-green-700 hover:bg-green-800 hover:shadow-2xl duration-300 rounded-xl px-4 ' >Ana Sayfa</button>
-                            </Typography>
+
                         </div>
-                        <div className='sm:flex md:flex flex-row gap-4 sm:gap-8 hidden '>
+                        <div className='sm:flex md:flex flex-row gap-3 sm:gap-8 hidden '>
+                            <Typography  >
+                                <button onClick={() => navigate("/")} className='border-b-1 font-[Poppins] text-[16px] hover:text-white border-b-green-700 hover:bg-green-800 hover:shadow-2xl duration-300 rounded-xl  ' >Ana Sayfa</button>
+                            </Typography>
                             <button onClick={() => navigate("/about-us")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500' >Hakkımızda</button>
                             <button onClick={() => navigate("/login")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 '>Giriş Yap</button>
                             <button onClick={() => navigate("/register")} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">Kayıt Ol</button>
@@ -52,7 +53,7 @@ const Header = () => {
                 </AppBar>
             </div>
             {
-                isOpen && (<div className='flex flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3  ' >
+                isOpen && (<div className='flex  sm:hidden flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3  ' >
                     <div className='w-6/12 flex flex-col gap-3'>
                         <button onClick={() => navigate("/about-us")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300' >Hakkımızda</button>
                         <button onClick={() => navigate("/login")} className='border px-2 py-2 border-green-900  rounded-lg hover:bg-green-400 hover:shadow-2xl duration-300 '>Giriş Yap</button>
