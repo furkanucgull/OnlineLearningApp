@@ -21,7 +21,7 @@ namespace OnlineLearningApi.Application.Mediator.Handlers.AppUserHandlers
         public async Task<GetCheckAppUserQueryResult> Handle(GetCheckAppUserQuery request, CancellationToken cancellationToken)
         {
             var values = new GetCheckAppUserQueryResult();
-            var user = await _appUserRepository.GetByFilterAsync(x => x.Username == request.Username && x.Password == request.Password);
+            var user = await _appUserRepository.GetByFilterAsync(x => x.Email == request.Email && x.Password == request.Password);
             if (user == null)
             {
                 values.IsExist = false;
@@ -30,6 +30,9 @@ namespace OnlineLearningApi.Application.Mediator.Handlers.AppUserHandlers
             {
                 values.IsExist = true;
                 values.Username = user.Username;
+                values.Surname= user.Surname;
+                values.Email = user.Email;
+                values.Name= user.Name;
                 values.Role = (await _appRoleRepository.GetByFilterAsync(x => x.AppRoleId == user.AppRoleId))?.AppRoleName;
                 values.Id=user.AppUserId;
             }

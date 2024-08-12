@@ -39,7 +39,7 @@ namespace OnlineLearningApi
 
             var app = builder.Build();
 
-        
+
             //builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -49,6 +49,7 @@ namespace OnlineLearningApi
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowed(origin => true));
             app.UseAuthentication();
             app.UseAuthorization();
 

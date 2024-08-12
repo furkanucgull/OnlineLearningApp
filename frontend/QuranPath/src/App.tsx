@@ -1,6 +1,7 @@
 import './index.css';
 import Header from './components/Header';
 import RouterConfig from "./Router/RouterConfig";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <div>
         <Header />
         <RouterConfig />
+        <ToastContainer />
       </div>
     </>
   );
