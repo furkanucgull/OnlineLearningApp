@@ -6,13 +6,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 //import DarkMode from './DarkMode';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../redux/slices/AuthSlice';
 
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const toggleNavbar = () => {
         console.log(isOpen);
         setIsOpen(!isOpen);
+    };
+    const handleLogOut = () => {
+        localStorage.removeItem("token");
+        dispatch(setLogin(false));
+        navigate("/login");
     };
     return (
         <>
@@ -30,9 +38,7 @@ const Header = () => {
                                 aria-label="menu"
                                 sx={{ mr: 2 }}>
                                 <div className=' md:hidden flex'>
-                                    <button onClick={toggleNavbar}>
-                                        <MenuIcon />
-                                    </button>
+                                    <MenuIcon onClick={toggleNavbar} />
                                 </div>
                             </IconButton>
 
@@ -44,6 +50,7 @@ const Header = () => {
                             <button onClick={() => navigate("/about-us")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500' >Hakkımızda</button>
                             <button onClick={() => navigate("/login")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 '>Giriş Yap</button>
                             <button onClick={() => navigate("/register")} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">Kayıt Ol</button>
+                            <button onClick={handleLogOut} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">çıkış</button>
                             {/* <DarkMode /> */}
                         </div>
                         <div className='sm:hidden'>

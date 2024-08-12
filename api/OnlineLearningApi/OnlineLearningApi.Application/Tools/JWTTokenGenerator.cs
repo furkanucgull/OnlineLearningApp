@@ -34,6 +34,7 @@ namespace OnlineLearningApi.Application.Tools
 
             JwtSecurityToken token = new JwtSecurityToken(
                 issuer: JWTTokenDefaults.ValidIssuer,
+                audience: JWTTokenDefaults.ValidAudience,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
                 expires: expireDate,
@@ -42,7 +43,6 @@ namespace OnlineLearningApi.Application.Tools
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             return new TokenResponseDto(tokenHandler.WriteToken(token), expireDate);
-
 
         }
     }

@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLogin } from "../redux/slices/AuthSlice";
 
-// Özelleştirilmiş toast bileşeni
+
 const ToastContent = ({ message }: { message: string; }) => (
     <div className="flex items-center bg-blue-500 text-white p-3 rounded-lg shadow-md">
         <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +16,7 @@ const ToastContent = ({ message }: { message: string; }) => (
     </div>
 );
 
-// Toast mesajını gösterme fonksiyonu
+
 const showToast = (message: string, type: 'success' | 'error') => {
     const toastOptions: ToastOptions = {
         position: "top-right",
@@ -34,9 +36,11 @@ const showToast = (message: string, type: 'success' | 'error') => {
 };
 
 const Login = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -48,8 +52,11 @@ const Login = () => {
 
         try {
             const response = await axios.post('https://localhost:7083/api/Login', payload);
+            console.log(response.data);
+            setName(response.data.name);
             localStorage.setItem("token", response?.data?.token);
             showToast("Giriş Başarılı! Anasayfaya yönlendiriliyorsunuz.", 'success');
+            dispatch(setLogin(true));
             setTimeout(() => {
                 navigate("/");
             }, 2000);
@@ -65,6 +72,7 @@ const Login = () => {
                 sm:bg-cover bg-no-repeat bg-center 
                 bg-[url("../../images/login.jpg")]'>
                 <div className="w-full sm:max-w-md p-10 mx-auto bg-neutral-300 opacity-90">
+                    <h1 className="text-white text-3xl">{name} hg</h1>
                     <h2 className="mb-12 text-center text-4xl font-extrabold">Hoşgeldiniz.</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
