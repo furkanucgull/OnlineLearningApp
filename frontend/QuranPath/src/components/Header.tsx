@@ -21,7 +21,7 @@ const Header = () => {
     const handleLogOut = () => {
         localStorage.removeItem("token");
         dispatch(setLogin(false));
-        navigate("/login");
+        //navigate("/login");
     };
     return (
         <>

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from "../apiConfig";
 
 const ToastContent = ({ message }: { message: string; }) => (
     <div className="flex items-center bg-blue-500 text-white p-3 rounded-lg shadow-md">
@@ -12,6 +13,7 @@ const ToastContent = ({ message }: { message: string; }) => (
         <span>{message}</span>
     </div>
 );
+
 const showToast = (message: string) => {
     toast(<ToastContent message={message} />, {
         position: "top-right",
@@ -23,41 +25,60 @@ const showToast = (message: string) => {
         progress: undefined,
     });
 };
+
+const calculateAge = (dateOfBirth: string) => {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+};
+
 const Register = () => {
     const navigate = useNavigate();
 
     const [name, setName] = useState<string>("");
-    const [username, setuserName] = useState("");
+    const [username, setUserName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    //const [gender, setGender] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState<string>("");
+    const [age, setAge] = useState<number | null>(null);
+
+    const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const dob = e.target.value;
+        setDateOfBirth(dob);
+        const calculatedAge = calculateAge(dob);
+        setAge(calculatedAge);
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const payload = {
-            username: username,
-            password: password,
-            name: name,
-            surname: surname,
-            age: 1,
-            email: email,
+            username,
+            password,
+            name,
+            surname,
+            email,
+            age,
         };
         try {
-            await axios.post('https://localhost:7083/api/Registers', payload);
-            showToast("Kayıt Başarılı Giriş Sayfasına Yönlendiriliyorsunuz ");
-            setInterval(() => {
-
+            await axios.post(`${API_BASE_URL}/Registers`, payload);
+            showToast("Kayıt Başarılı, Giriş Sayfasına Yönlendiriliyorsunuz");
+            setTimeout(() => {
                 navigate("/login");
             }, 5000);
         } catch (error) {
-            toast.warning("hata");
-            console.log("hata", error);
+            toast.warning("Kayıt sırasında bir hata oluştu.");
+            console.log("Hata", error);
         }
     };
 
     return (
-
-        <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
+        <div className="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
             <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">Kayıt Formu</h1>
             <form onSubmit={(e) => handleSubmit(e)} className="w-full flex flex-col gap-4">
                 <div className="flex items-start flex-col justify-start">
@@ -69,26 +90,11 @@ const Register = () => {
                     <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Soyisim :</label>
                     <input value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id="lastName" name="lastName" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
-                <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Cinsiyet :</label>
-                    <div className="flex flex-row gap-3 justify-center items-center p-3">
-                        <label htmlFor="male" className="flex items-center gap-2">
-                            <input type="radio" id="male" name="gender" value="male" />
-                            Erkek
-                        </label>
-                        <label htmlFor="female" className="flex items-center gap-2">
-                            <input type="radio" id="female" name="gender" value="female" />
-                            Kadın
-                        </label>
-                    </div>
-                </div>
 
                 <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Yaşınız :</label>
-                    <input type="date" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Doğum Tarihi :</label>
+                    <input type="date" value={dateOfBirth} onChange={handleDateOfBirthChange} className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
-
-
 
                 <div className="flex items-start flex-col justify-start">
                     <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Email :</label>
@@ -97,7 +103,7 @@ const Register = () => {
 
                 <div className="flex items-start flex-col justify-start">
                     <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Kullanıcı Adı :</label>
-                    <input value={username} onChange={(e) => setuserName(e.target.value)} type="text" id="username" name="username" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                    <input value={username} onChange={(e) => setUserName(e.target.value)} type="text" id="username" name="username" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
                 <div className="flex items-start flex-col justify-start">
@@ -105,13 +111,7 @@ const Register = () => {
                     <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" name="password" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
-                {/* <div className="flex items-start flex-col justify-start">
-                        <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Tekrar Şifreniz :</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
-                    </div> */}
-
                 <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md shadow-sm">Kayıt Ol</button>
-
             </form>
 
             <div className="mt-4 text-center">
@@ -119,11 +119,9 @@ const Register = () => {
                 <a onClick={() => navigate("/login")} className="text-blue-500 hover:text-blue-600">Giriş Yapın</a>
             </div>
 
+            <ToastContainer />
         </div>
-
-
-
     );
 };
 
-export default Register;;
+export default Register;

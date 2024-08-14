@@ -1,10 +1,9 @@
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setLogin } from "../redux/slices/AuthSlice";
+import { getLogin, setEmail, setPassword } from "../redux/slices/AuthSlice";
+import { AppDispatch, RootState } from "../redux/store";
 
 
 const ToastContent = ({ message }: { message: string; }) => (
@@ -15,7 +14,6 @@ const ToastContent = ({ message }: { message: string; }) => (
         <span>{message}</span>
     </div>
 );
-
 
 const showToast = (message: string, type: 'success' | 'error') => {
     const toastOptions: ToastOptions = {
@@ -36,27 +34,19 @@ const showToast = (message: string, type: 'success' | 'error') => {
 };
 
 const Login = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+
+    const email = useSelector((state: RootState) => state.auth.email);
+    const password = useSelector((state: RootState) => state.auth.password);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const payload = {
-            email,
-            password,
-        };
-
         try {
-            const response = await axios.post('https://localhost:7083/api/Login', payload);
-            console.log(response.data);
-            setName(response.data.name);
-            localStorage.setItem("token", response?.data?.token);
+            dispatch(getLogin({ email, password }));
             showToast("Giriş Başarılı! Anasayfaya yönlendiriliyorsunuz.", 'success');
-            dispatch(setLogin(true));
+
             setTimeout(() => {
                 navigate("/");
             }, 2000);
@@ -72,14 +62,14 @@ const Login = () => {
                 sm:bg-cover bg-no-repeat bg-center 
                 bg-[url("../../images/login.jpg")]'>
                 <div className="w-full sm:max-w-md p-10 mx-auto bg-neutral-300 opacity-90">
-                    <h1 className="text-white text-3xl">{name} hg</h1>
+
                     <h2 className="mb-12 text-center text-4xl font-extrabold">Hoşgeldiniz.</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block mb-1">E-Mail :</label>
                             <input
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => dispatch(setEmail(e.target.value))}
                                 id="username"
                                 type="text"
                                 name="email"
@@ -90,7 +80,7 @@ const Login = () => {
                             <label className="block mb-1">Şifre</label>
                             <input
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => dispatch(setPassword(e.target.value))}
                                 id="password"
                                 type="password"
                                 name="password"
@@ -122,7 +112,6 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-            {/* Toast Container */}
             <ToastContainer />
         </div>
     );
