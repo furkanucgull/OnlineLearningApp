@@ -117,7 +117,7 @@ const Login = () => {
                             </button>
                         </div>
                         <div className="mt-6 text-center">
-                            <a onClick={() => navigate("/register")} className="underline">Üyeliğiniz yoksa üye olmak için tıklayın.</a>
+                            <a onClick={() => navigate("/register")} className="underline cursor-pointer">Üyeliğiniz yoksa üye olmak için tıklayın.</a>
                         </div>
                     </form>
                 </div>
