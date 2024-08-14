@@ -41,7 +41,9 @@ const Register = () => {
     const navigate = useNavigate();
 
     const [name, setName] = useState<string>("");
-    const [username, setUserName] = useState("");
+    const [parentName, setParentName] = useState<string>("");
+    const [parentPhone, setParentPhone] = useState<string>("");
+    //const [username, setUserName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -58,7 +60,9 @@ const Register = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const payload = {
-            username,
+            username: "",
+            parentName,
+            parentPhone,
             password,
             name,
             surname,
@@ -82,29 +86,34 @@ const Register = () => {
             <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">Kayıt Formu</h1>
             <form onSubmit={(e) => handleSubmit(e)} className="w-full flex flex-col gap-4">
                 <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">İsim :</label>
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Öğrenci İsim :</label>
                     <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="firstName" name="firstName" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
                 <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Soyisim :</label>
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2"> Öğrenci Soyisim :</label>
                     <input value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id="lastName" name="lastName" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                </div>
+                <div className="flex items-start flex-col justify-start">
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2"> Veli İsim Soyisim :</label>
+                    <input value={parentName} onChange={(e) => setParentName(e.target.value)} type="text" id="lastName" name="lastName" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                </div>
+                <div className="flex items-start flex-col justify-start">
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2"> Veli Tel No :</label>
+                    <input value={parentPhone} onChange={(e) => setParentPhone(e.target.value)} type="tel" id="lastName" name="lastName" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
                 <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Doğum Tarihi :</label>
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Öğrenci Doğum Tarihi :</label>
                     <input type="date" value={dateOfBirth} onChange={handleDateOfBirthChange} className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
                 <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Email :</label>
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2"> Öğrenci Email :</label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                 </div>
 
-                <div className="flex items-start flex-col justify-start">
-                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Kullanıcı Adı :</label>
-                    <input value={username} onChange={(e) => setUserName(e.target.value)} type="text" id="username" name="username" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
-                </div>
+
 
                 <div className="flex items-start flex-col justify-start">
                     <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Şifreniz :</label>

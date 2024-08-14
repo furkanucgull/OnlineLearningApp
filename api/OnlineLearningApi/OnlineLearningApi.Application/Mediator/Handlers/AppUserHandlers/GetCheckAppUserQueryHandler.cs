@@ -30,11 +30,13 @@ namespace OnlineLearningApi.Application.Mediator.Handlers.AppUserHandlers
             {
                 values.IsExist = true;
                 values.Username = user.Username;
-                values.Surname= user.Surname;
+                values.Surname = user.Surname;
+                values.ParentPhone = user.ParentPhone;
+                values.ParentName = user.ParentName;
                 values.Email = user.Email;
-                values.Name= user.Name;
+                values.Name = user.Name;
                 values.Role = (await _appRoleRepository.GetByFilterAsync(x => x.AppRoleId == user.AppRoleId))?.AppRoleName;
-                values.Id=user.AppUserId;
+                values.Id = user.AppUserId;
             }
             return values;
         }
