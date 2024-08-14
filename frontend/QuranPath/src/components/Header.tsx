@@ -1,6 +1,5 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 //import DarkMode from './DarkMode';
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../redux/slices/AuthSlice';
+import NavButtons from './NavButtons';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -44,17 +44,11 @@ const Header = () => {
 
                         </div>
                         <div className='sm:flex md:flex flex-row gap-3 sm:gap-8 hidden '>
-                            <Typography  >
-                                <button onClick={() => navigate("/")} className='border-b-1 font-[Poppins] text-[16px] hover:text-white border-b-green-700 hover:bg-green-800 hover:shadow-2xl duration-300 rounded-xl  ' >Ana Sayfa</button>
-                            </Typography>
-                            <button onClick={() => navigate("/about-us")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500' >Hakkımızda</button>
-                            <button onClick={() => navigate("/login")} className=' px-2  rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 '>Giriş Yap</button>
-                            <button onClick={() => navigate("/register")} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">Kayıt Ol</button>
-                            <button onClick={handleLogOut} className=' px-2   rounded-lg hover:bg-green-500 hover:shadow-2xl duration-500 ' color="inherit">çıkış</button>
-                            {/* <DarkMode /> */}
-                        </div>
-                        <div className='sm:hidden'>
-                            {/* <DarkMode /> */}
+                            <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
+                            <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
+                            <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
+                            <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
+                            <NavButtons onClick={handleLogOut} name='Çıkış' />
                         </div>
                     </Toolbar>
                 </AppBar>
