@@ -45,7 +45,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            // `dispatch` işlevinin sonucunu bekle
+
             const resultAction = await dispatch(getLogin({ email, password }));
 
             if (getLogin.fulfilled.match(resultAction)) {
@@ -54,7 +54,7 @@ const Login = () => {
                     navigate("/");
                 }, 2000);
             } else {
-                // Hata mesajı göster
+
                 showToast("Giriş hatası! Lütfen bilgilerinizi kontrol edin.", 'error');
             }
         } catch (error) {
@@ -77,7 +77,7 @@ const Login = () => {
                             <input
                                 value={email}
                                 onChange={(e) => dispatch(setEmail(e.target.value))}
-                                id="email" // ID doğru tanımlandı
+                                id="email"
                                 type="text"
                                 name="email"
                                 className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
