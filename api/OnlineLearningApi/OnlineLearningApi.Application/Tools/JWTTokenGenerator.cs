@@ -27,6 +27,8 @@ namespace OnlineLearningApi.Application.Tools
 
             if (!string.IsNullOrWhiteSpace(result.Surname))
                 claims.Add(new Claim("Surname", result.Surname));
+            if (!string.IsNullOrWhiteSpace(result.Role))
+                claims.Add(new Claim("Role", result.Role));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTTokenDefaults.Key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

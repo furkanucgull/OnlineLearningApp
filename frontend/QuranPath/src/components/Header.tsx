@@ -21,12 +21,10 @@ const Header = () => {
     };
     const handleLogOut = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
         dispatch(setLogin(false));
         showToast("Başarıyla çıkış yapıldı");
-        setInterval(() => {
 
-        }, 2000);
-        //navigate("/login");
     };
 
     return (

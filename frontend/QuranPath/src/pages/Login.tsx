@@ -19,7 +19,7 @@ const ToastContent = ({ message }: { message: string; }) => (
 const showToast = (message: string, type: 'success' | 'error') => {
     const toastOptions: ToastOptions = {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
