@@ -20,11 +20,9 @@ export const showToast = (message: string) => {
     });
 };
 
-interface Props {
-    showToast: (message: string) => void;
-}
 
-const Toast = ({ showToast }: Props) => {
+
+const Toast = () => {
     return (
         <div>
             <ToastContainer />

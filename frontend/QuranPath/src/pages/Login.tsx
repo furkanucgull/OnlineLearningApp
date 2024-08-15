@@ -37,7 +37,6 @@ const showToast = (message: string, type: 'success' | 'error') => {
 const Login = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-
     const email = useSelector((state: RootState) => state.auth.email);
     const password = useSelector((state: RootState) => state.auth.password);
 
@@ -50,6 +49,8 @@ const Login = () => {
 
             if (getLogin.fulfilled.match(resultAction)) {
                 showToast("Giriş Başarılı! Anasayfaya yönlendiriliyorsunuz.", 'success');
+                dispatch(setEmail(""));
+                dispatch(setPassword(""));
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
