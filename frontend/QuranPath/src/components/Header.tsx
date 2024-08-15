@@ -14,6 +14,7 @@ import { showToast } from './Toast';
 const Header = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+    const isAdmin = useSelector((state: RootState) => state.auth.isAdmin);
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const toggleNavbar = () => {
@@ -55,12 +56,21 @@ const Header = () => {
                                     <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
                                     <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
                                     <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
+                                    {isAdmin &&
+                                        <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
+
+                                    }
                                 </div>
                                 :
                                 <div className='sm:flex md:flex flex-row gap-3 sm:gap-8 hidden '>
                                     <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
                                     <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
                                     <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
+                                    {isAdmin && (
+
+                                        <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
+
+                                    )}
                                 </div>
                         }
                     </Toolbar>
@@ -68,41 +78,40 @@ const Header = () => {
             </div>
             {
                 isOpen && (
-
-                    isLoggedIn ?
-                        <div className='flex  sm:hidden  flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3  ' >
-                            <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
-                                </div>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
-                                </div>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
-                                </div>
+                    <div className='flex sm:hidden flex-col gap-3 text-white justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3'>
+                        <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
+                            <div className="border-b border-green-300">
+                                <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
                             </div>
+                            <div className="border-b border-green-300">
+                                <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
+                            </div>
+                            {isLoggedIn ? (
+                                <>
+                                    <div className="border-b border-green-300">
+                                        <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
+                                    </div>
+                                    {isAdmin && (
+                                        <div className="border-b border-green-300">
+                                            <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    <div className="border-b border-green-300">
+                                        <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
+                                    </div>
+                                    <div className="border-b border-green-300">
+                                        <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
+                                    </div>
+                                </>
+                            )}
                         </div>
-                        :
-                        (<div className='flex  sm:hidden flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3  ' >
-
-                            <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
-                                </div>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
-                                </div>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
-                                </div>
-                                <div className="border-b border-green-300">
-                                    <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
-                                </div>
-                            </div>
-                        </div>)
+                    </div>
                 )
             }
+
         </>
     );
 };
