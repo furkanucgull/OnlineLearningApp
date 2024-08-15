@@ -11,8 +11,8 @@ using OnlineLearningApi.Persistence.Context;
 namespace OnlineLearningApi.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240809200848_app_age")]
-    partial class app_age
+    [Migration("20240814202508_username_nullable")]
+    partial class username_nullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,13 @@ namespace OnlineLearningApi.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentPhone")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -72,7 +79,6 @@ namespace OnlineLearningApi.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AppUserId");

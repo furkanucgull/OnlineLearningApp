@@ -9,6 +9,7 @@ import { setLogin } from '../redux/slices/AuthSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import NavButtons from './NavButtons';
+import { showToast } from './Toast';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -21,8 +22,13 @@ const Header = () => {
     const handleLogOut = () => {
         localStorage.removeItem("token");
         dispatch(setLogin(false));
+        showToast("Başarıyla çıkış yapıldı");
+        setInterval(() => {
+
+        }, 2000);
         //navigate("/login");
     };
+
     return (
         <>
             <div className='flex flex-row '>
@@ -81,6 +87,7 @@ const Header = () => {
                         </div>
                         :
                         (<div className='flex  sm:hidden flex-col gap-3 text-white  justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3  ' >
+
                             <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
                                 <div className="border-b border-green-300">
                                     <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />

@@ -17,7 +17,7 @@ const Banner = () => {
             <div className=" flex flex-col gap-4 sm:flex-row mt-6   ">
                 <button onClick={() => navigate("/register")} className="bg-transparent text-white text-lg font-bold hover:bg-green-500 duration-500  border p-3 rounded-2xl"> Online Kurslara Kayıt</button>
                 <button onClick={() => navigate("/register")} className="bg-transparent text-white text-lg  sm:text-xl font-bold hover:bg-green-500 duration-500  border p-3 rounded-2xl"> Yüzyüze Kurslara Kayıt</button>
-                <button onClick={() => navigate("/login")} className="bg-transparent text-white text-lg   sm:text-xl font-bold hover:bg-green-500 duration-500  border p-3 rounded-2xl"> Giriş Yap</button>
+
             </div>
 
         </div>

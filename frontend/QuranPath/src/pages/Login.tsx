@@ -1,10 +1,11 @@
+// Login.tsx
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getLogin, setEmail, setPassword } from "../redux/slices/AuthSlice";
 import { AppDispatch, RootState } from "../redux/store";
-
 
 const ToastContent = ({ message }: { message: string; }) => (
     <div className="flex items-center bg-blue-500 text-white p-3 rounded-lg shadow-md">
@@ -36,7 +37,6 @@ const showToast = (message: string, type: 'success' | 'error') => {
 const Login = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-
     const email = useSelector((state: RootState) => state.auth.email);
     const password = useSelector((state: RootState) => state.auth.password);
 
@@ -44,12 +44,20 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            dispatch(getLogin({ email, password }));
-            showToast("Giriş Başarılı! Anasayfaya yönlendiriliyorsunuz.", 'success');
 
-            setTimeout(() => {
-                navigate("/");
-            }, 2000);
+            const resultAction = await dispatch(getLogin({ email, password }));
+
+            if (getLogin.fulfilled.match(resultAction)) {
+                showToast("Giriş Başarılı! Anasayfaya yönlendiriliyorsunuz.", 'success');
+                dispatch(setEmail(""));
+                dispatch(setPassword(""));
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            } else {
+
+                showToast("Giriş hatası! Lütfen bilgilerinizi kontrol edin.", 'error');
+            }
         } catch (error) {
             showToast("Giriş hatası! Lütfen bilgilerinizi kontrol edin.", 'error');
             console.log("Hata", error);
@@ -70,7 +78,7 @@ const Login = () => {
                             <input
                                 value={email}
                                 onChange={(e) => dispatch(setEmail(e.target.value))}
-                                id="username"
+                                id="email"
                                 type="text"
                                 name="email"
                                 className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"

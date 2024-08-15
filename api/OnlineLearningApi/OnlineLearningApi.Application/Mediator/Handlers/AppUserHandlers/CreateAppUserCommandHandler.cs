@@ -22,6 +22,8 @@ namespace OnlineLearningApi.Application.Mediator.Handlers.AppUserHandlers
                 Age = request.Age,
                 Email = request.Email,
                 Name = request.Name,
+                ParentName = request.ParentName,
+                ParentPhone = request.ParentPhone,
                 Password = request.Password,
                 Surname = request.Surname,
                 Username = request.Username,
