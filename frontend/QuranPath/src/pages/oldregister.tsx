@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from "../apiConfig";
 import { showToast } from '../components/Toast';
 import { useFormik } from 'formik';
-import { RegisterFormSchema } from '../schemas/RegisterFormSchemas';
+import { RegisterFormSchema } from '../schemas/RegisterFormSchemas';  // Şema dosyasını içe aktar
 
 const calculateAge = (dateOfBirth: string) => {
     const birthDate = new Date(dateOfBirth);

@@ -35,7 +35,10 @@ namespace OnlineLearningApi.Controllers
                     ExpireDate = tokenResponse.ExpireDate,
                     Username = values.Username,
                     Name = values.Name,
+                    Role = values.Role,
                     Surname = values.Surname
+                    
+                    
                 };
                 return Ok(response);
             }

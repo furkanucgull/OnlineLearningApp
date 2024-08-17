@@ -6,19 +6,22 @@ import Login from '../pages/Login';
 import About from '../pages/About';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import UserList from '../pages/UserList';
 
 
 
 const RouterConfig = () => {
 
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-    console.log("deneme", isLoggedIn);
+    const isAdmin = useSelector((state: RootState) => state.auth.isAdmin);
+    //console.log("admin mi", isAdmin);
     return (
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about-us" element={isLoggedIn ? <About /> : <Login />} />
+            <Route path="/user-list" element={isAdmin ? <UserList /> : <Login />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );
