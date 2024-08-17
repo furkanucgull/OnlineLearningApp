@@ -1,19 +1,32 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import UserTable from "../components/UserTable";
+import { API_BASE_URL } from "../apiConfig";
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    appRoleId: number;
+    roleName: string;
+}
 
 const UserList = () => {
+    const [users, setUsers] = useState<User[]>([]);
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                console.log(token);
                 if (token) {
-                    const response = await axios.get('https://localhost:7083/api/Users', {
+                    const response = await axios.get(`${API_BASE_URL}/Users`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
+
                     });
-                    console.log(response.data); // Gelen veriyi işleyin
+
+                    setUsers(response.data);
+
                 } else {
                     console.log('Token bulunamadı');
                 }
@@ -24,8 +37,11 @@ const UserList = () => {
 
         fetchUserProfile();
     }, []);
+
     return (
-        <div>UserList</div>
+        <div>
+            <UserTable users={users} />
+        </div>
     );
 };
 

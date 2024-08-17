@@ -21,7 +21,7 @@ interface CounterState {
 }
 
 const role = localStorage.getItem('role');
-console.log(role, 'rolümüz');
+//console.log(role, 'rolümüz');
 const initialState: CounterState = {
   isLoggedIn: !!localStorage.getItem('token'),
   isAdmin: role == 'Admin',
@@ -33,7 +33,7 @@ export const getLogin = createAsyncThunk<AuthResponse, LoginPayload>('auth/getLo
   const response = await axios.post(`${API_BASE_URL}/Login`, payload);
   localStorage.setItem('token', response.data.token);
   localStorage.setItem('role', response.data.role);
-  console.log(response.data);
+  //console.log(response.data);
   // console.log('role', response.data.role);
   return response.data;
 });
@@ -60,6 +60,7 @@ const counterSlice = createSlice({
       } else {
         state.isAdmin = false;
       }
+
       state.isLoggedIn = true;
     });
     builder.addCase(getLogin.rejected, (state) => {

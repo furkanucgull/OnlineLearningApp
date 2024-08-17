@@ -14,7 +14,7 @@ const RouterConfig = () => {
 
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.auth.isAdmin);
-    console.log("admin mi", isAdmin);
+    //console.log("admin mi", isAdmin);
     return (
         <Routes>
             <Route path="/" element={<Home />} />

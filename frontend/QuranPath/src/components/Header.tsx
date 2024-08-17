@@ -3,13 +3,12 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '../redux/slices/AuthSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import NavButtons from './NavButtons';
 import { showToast } from './Toast';
+import { RootState } from '../redux/store';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -17,15 +16,20 @@ const Header = () => {
     const isAdmin = useSelector((state: RootState) => state.auth.isAdmin);
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+    }, [isLoggedIn, isAdmin]);
+
     const toggleNavbar = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(prev => !prev);
     };
+
     const handleLogOut = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
         dispatch(setLogin(false));
         showToast("Başarıyla çıkış yapıldı");
-
+        navigate("/");
     };
 
     return (
@@ -47,71 +51,48 @@ const Header = () => {
                                     <MenuIcon onClick={toggleNavbar} />
                                 </div>
                             </IconButton>
-
                         </div>
-                        {
-                            !isLoggedIn ?
-                                <div className='sm:flex md:flex  flex-row gap-3 sm:gap-8 hidden '>
-                                    <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
-                                    <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
-                                    <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
-                                    <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
-                                    {isAdmin &&
-                                        <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
-
-                                    }
-                                </div>
-                                :
-                                <div className='sm:flex md:flex flex-row gap-3 sm:gap-8 hidden '>
-                                    <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
-                                    <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
-                                    <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
-                                    {isAdmin && (
-
-                                        <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
-
-                                    )}
-                                </div>
-                        }
-                    </Toolbar>
-                </AppBar>
-            </div>
-            {
-                isOpen && (
-                    <div className='flex sm:hidden flex-col gap-3 text-white justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3'>
-                        <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
-                            <div className="border-b border-green-300">
-                                <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
-                            </div>
-                            <div className="border-b border-green-300">
-                                <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
-                            </div>
+                        <div className={`sm:flex md:flex flex-row gap-3 sm:gap-8 ${!isOpen ? 'hidden' : ''}`}>
+                            <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
+                            <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
                             {isLoggedIn ? (
                                 <>
-                                    <div className="border-b border-green-300">
-                                        <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
-                                    </div>
+                                    <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
                                     {isAdmin && (
-                                        <div className="border-b border-green-300">
-                                            <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
-                                        </div>
+                                        <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
                                     )}
                                 </>
                             ) : (
                                 <>
-                                    <div className="border-b border-green-300">
-                                        <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
-                                    </div>
-                                    <div className="border-b border-green-300">
-                                        <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
-                                    </div>
+                                    <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
+                                    <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
                                 </>
                             )}
                         </div>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            {isOpen && (
+                <div className='flex sm:hidden flex-col gap-3 text-white justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3'>
+                    <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
+                        <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
+                        <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
+                        {isLoggedIn ? (
+                            <>
+                                <NavButtons onClick={handleLogOut} name='Çıkış Yap' />
+                                {isAdmin && (
+                                    <NavButtons onClick={() => navigate("/user-list")} name='Kullanıcı Listesi' />
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <NavButtons onClick={() => navigate("/login")} name='Giriş Yap' />
+                                <NavButtons onClick={() => navigate("/register")} name='Kayıt Ol' />
+                            </>
+                        )}
                     </div>
-                )
-            }
-
+                </div>
+            )}
         </>
     );
 };
