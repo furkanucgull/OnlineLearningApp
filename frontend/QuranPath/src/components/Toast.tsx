@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const ToastContent = ({ message }: { message: string; }) => (
     <div className="flex items-center bg-green-500 text-white p-3 rounded-lg shadow-md">
@@ -25,7 +25,7 @@ export const showToast = (message: string) => {
 const Toast = () => {
     return (
         <div>
-            <ToastContainer />
+
         </div>
     );
 };

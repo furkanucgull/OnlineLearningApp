@@ -39,12 +39,7 @@ const UserTable = ({ users }: UserTableProps) => {
                             tableStyle={{ minWidth: '100%' }}
                             className="min-w-full divide-y divide-gray-200"
                         >
-                            <Column
-                                field="id"
-                                header="ID"
-                                headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
-                            />
+
                             <Column
                                 field="name"
                                 header="Name"
@@ -57,6 +52,19 @@ const UserTable = ({ users }: UserTableProps) => {
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                             />
+                            <Column
+                                field="parentName"
+                                header="Veli"
+                                headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
+                            />
+                            <Column
+                                field="parentPhone"
+                                header="Veli Tel"
+                                headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
+                            />
+
                             <Column
                                 header="Role"
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"

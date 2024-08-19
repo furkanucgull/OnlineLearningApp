@@ -10,6 +10,8 @@ interface LoginPayload {
 interface AuthResponse {
   token: string;
   role: string;
+  name: string;
+  surname: string;
 }
 
 interface CounterState {
@@ -18,6 +20,8 @@ interface CounterState {
   email: string;
   password: string;
   data: AuthResponse | null;
+  name: string;
+  surname: string;
 }
 
 const role = localStorage.getItem('role');
@@ -27,13 +31,18 @@ const initialState: CounterState = {
   isAdmin: role == 'Admin',
   email: '',
   password: '',
+  name: '',
+  surname: '',
   data: null,
 };
 export const getLogin = createAsyncThunk<AuthResponse, LoginPayload>('auth/getLogin', async (payload) => {
   const response = await axios.post(`${API_BASE_URL}/Login`, payload);
   localStorage.setItem('token', response.data.token);
   localStorage.setItem('role', response.data.role);
-  //console.log(response.data);
+  localStorage.setItem('name', response.data.name);
+  localStorage.setItem('surname', response.data.surname);
+  console.log(response.data);
+
   // console.log('role', response.data.role);
   return response.data;
 });
@@ -51,10 +60,17 @@ const counterSlice = createSlice({
     setEmail: (state, action) => {
       state.email = action.payload;
     },
+    setName: (state, action) => {
+      state.name = action.payload;
+      state.surname = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getLogin.fulfilled, (state, action) => {
       state.data = action.payload;
+      state.name = action.payload.name;
+      state.surname = action.payload.surname;
+
       if (action.payload.role === 'Admin') {
         state.isAdmin = true;
       } else {
@@ -69,6 +85,6 @@ const counterSlice = createSlice({
   },
 });
 
-export const { setLogin, setPassword, setEmail } = counterSlice.actions;
+export const { setLogin, setPassword, setEmail, setName } = counterSlice.actions;
 
 export default counterSlice.reducer;

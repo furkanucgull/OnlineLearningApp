@@ -25,8 +25,7 @@ const Header = () => {
     };
 
     const handleLogOut = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
+        localStorage.clear();
         dispatch(setLogin(false));
         showToast("Başarıyla çıkış yapıldı");
         navigate("/");
