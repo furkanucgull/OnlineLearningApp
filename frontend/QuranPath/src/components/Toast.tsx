@@ -11,7 +11,7 @@ const ToastContent = ({ message }: { message: string; }) => (
 export const showToast = (message: string) => {
     toast(<ToastContent message={message} />, {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,

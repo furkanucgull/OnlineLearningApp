@@ -30,6 +30,7 @@ const Register = () => {
             dateOfBirth: "",
             email: "",
             password: "",
+            confirmPassword: "",
         },
         validationSchema: RegisterFormSchema,
         onSubmit: async (values) => {
@@ -39,6 +40,7 @@ const Register = () => {
                 parentName: values.parentName,
                 parentPhone: values.parentPhone,
                 password: values.password,
+                confirmPassword: values.confirmPassword,
                 name: values.name,
                 surname: values.surname,
                 email: values.email,
@@ -163,6 +165,19 @@ const Register = () => {
                         className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     {formik.touched.password && formik.errors.password ? <div className="text-red-500 text-sm">{formik.errors.password}</div> : null}
+                </div>
+                <div className="flex items-start flex-col justify-start">
+                    <label className="text-sm text-gray-700 dark:text-gray-200 mr-2">Tekrar Şifreniz :</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={formik.values.confirmPassword}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className="text-red-500 text-sm">{formik.errors.confirmPassword}</div> : null}
                 </div>
 
                 <button

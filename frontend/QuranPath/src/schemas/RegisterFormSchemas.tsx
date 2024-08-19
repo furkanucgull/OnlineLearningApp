@@ -42,4 +42,9 @@ export const RegisterFormSchema = yup.object().shape({
         .required("Şifre zorunludur")
         .min(8, "Şifre en az 8 karakter olmalıdır")
         .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/, "Şifre en az bir harf ve bir sayı içermelidir"),
+    confirmPassword: yup
+        .string()
+        .required('Confirm Password is required')
+        .oneOf([yup.ref('password')], 'Passwords must match')
+
 });
