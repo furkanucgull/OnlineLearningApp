@@ -34,7 +34,7 @@ const Header = () => {
 
     return (
         <>
-            <div className='flex flex-row '>
+            <div className='flex flex-row'>
                 <AppBar sx={{
                     background: 'linear-gradient(to right, #a0f1a1, #064e3b)',
                 }} position="static">
@@ -47,12 +47,13 @@ const Header = () => {
                                 color="inherit"
                                 aria-label="menu"
                                 sx={{ mr: 2 }}>
-                                <div className=' md:hidden flex'>
+                                <div className='md:hidden flex'>
                                     <MenuIcon onClick={toggleNavbar} />
                                 </div>
                             </IconButton>
                         </div>
-                        <div className={`sm:flex md:flex flex-row gap-3 sm:gap-8 ${!isOpen ? 'hidden' : ''}`}>
+                        {/* Navbar items: Hidden on mobile unless the menu is open */}
+                        <div className={`hidden md:flex flex-row gap-3 sm:gap-8 ${isOpen && 'hidden md:flex'}`}>
                             <NavButtons onClick={() => navigate("/")} name='Ana Sayfa' />
                             <NavButtons onClick={() => navigate("/about-us")} name='Hakkımızda' />
                             {isLoggedIn ? (
@@ -72,6 +73,7 @@ const Header = () => {
                     </Toolbar>
                 </AppBar>
             </div>
+            {/* Mobile menu */}
             {isOpen && (
                 <div className='flex sm:hidden flex-col gap-3 text-white justify-center items-center bg-gradient-to-r from-green-300 to-green-900 py-3'>
                     <div className='rounded-sm flex flex-col gap-3 items-center text-center justify-center'>
