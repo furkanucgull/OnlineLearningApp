@@ -11,6 +11,7 @@ interface User {
     parentName?: string;
     parentPhone?: string;
     appRoleId: number;
+    password?: string; // Şifre alanı ekledik
 }
 
 interface Role {
@@ -71,7 +72,6 @@ const UserUpdate = () => {
                     });
                     navigate('/user-list');
                     showToast('Kullanıcı başarıyla güncellendi');
-
                 } else {
                     console.log('Token bulunamadı');
                 }
@@ -154,6 +154,20 @@ const UserUpdate = () => {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+
+                        {/* Şifre Alanı */}
+                        <div className="mb-4">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Yeni Şifre</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={formData.password || ''}
+                                onChange={handleChange}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+
+                            />
                         </div>
 
                         <button
