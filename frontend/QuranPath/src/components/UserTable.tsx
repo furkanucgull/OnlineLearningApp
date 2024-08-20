@@ -15,10 +15,10 @@ interface User {
 
 interface UserTableProps {
     users: User[];
-
+    onDelete: (userId: number) => void; // Silme işlevi için prop
 }
 
-const UserTable = ({ users }: UserTableProps) => {
+const UserTable = ({ users, onDelete }: UserTableProps) => {
     const navigate = useNavigate();
 
     const getRoleName = (appRoleId: number) => {
@@ -35,7 +35,6 @@ const UserTable = ({ users }: UserTableProps) => {
     };
 
     const actionBodyTemplate = (rowData: User) => {
-
         return (
             <div className="flex justify-around">
                 <Button
@@ -48,12 +47,11 @@ const UserTable = ({ users }: UserTableProps) => {
                     label="Sil"
                     icon="pi pi-trash"
                     className="p-button-sm p-button-rounded p-button-danger"
-
+                    onClick={() => onDelete(rowData.appUserId)} // Silme işlevini çağır
                 />
             </div>
         );
     };
-
 
     return (
         <div className="flex flex-col items-center px-4">
@@ -66,14 +64,12 @@ const UserTable = ({ users }: UserTableProps) => {
                             tableStyle={{ minWidth: '100%' }}
                             className="min-w-full divide-y divide-gray-200"
                         >
-
                             <Column
                                 field="name"
                                 header="Name"
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                             />
-
                             <Column
                                 field="email"
                                 header="Email"
@@ -92,15 +88,12 @@ const UserTable = ({ users }: UserTableProps) => {
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                             />
-
                             <Column
                                 header="Role"
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                                 body={(rowData) => getRoleName(rowData.appRoleId)}
                             />
-
-                            {/* Action Column for Update and Delete Buttons */}
                             <Column
                                 header="Actions"
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
