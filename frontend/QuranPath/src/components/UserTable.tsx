@@ -15,7 +15,7 @@ interface User {
 
 interface UserTableProps {
     users: User[];
-    onDelete: (userId: number) => void; // Silme işlevi için prop
+    onDelete: (userId: number) => void;
 }
 
 const UserTable = ({ users, onDelete }: UserTableProps) => {
@@ -39,15 +39,13 @@ const UserTable = ({ users, onDelete }: UserTableProps) => {
             <div className="flex justify-around">
                 <Button
                     label="Güncelle"
-                    icon="pi pi-pencil"
-                    className="p-button-sm p-button-rounded p-button-success"
+                    className="bg-blue-400 rounded-3xl p-2 text-white hover:bg-blue-900"
                     onClick={() => navigate(`/user-update/${rowData.appUserId}`)}
                 />
                 <Button
                     label="Sil"
-                    icon="pi pi-trash"
-                    className="p-button-sm p-button-rounded p-button-danger"
-                    onClick={() => onDelete(rowData.appUserId)} // Silme işlevini çağır
+                    className="bg-red-400 rounded-3xl p-2 text-white hover:bg-red-900"
+                    onClick={() => onDelete(rowData.appUserId)}
                 />
             </div>
         );
