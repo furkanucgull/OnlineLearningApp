@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import UserTable from "../components/UserTable";
 import { API_BASE_URL } from "../apiConfig";
+import { showToast } from "../components/Toast"; // Toast mesajı göstermek için
 
 interface User {
-    id: number;
+    appUserId: number;
     name: string;
     email: string;
     appRoleId: number;
@@ -13,8 +14,9 @@ interface User {
 
 const UserList = () => {
     const [users, setUsers] = useState<User[]>([]);
+
     useEffect(() => {
-        const fetchUserProfile = async () => {
+        const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
@@ -22,25 +24,41 @@ const UserList = () => {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
-
                     });
-
                     setUsers(response.data);
-
                 } else {
                     console.log('Token bulunamadı');
                 }
             } catch (error) {
-                console.error('Kullanıcı profili alınırken bir hata oluştu:', error);
+                console.error('Kullanıcı listesi alınırken bir hata oluştu:', error);
             }
         };
 
-        fetchUserProfile();
+        fetchUsers();
     }, []);
+
+    const handleDelete = async (userId: number) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (token) {
+                await axios.delete(`${API_BASE_URL}/Users/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUsers(users.filter(user => user.appUserId !== userId));
+                showToast('Kullanıcı başarıyla silindi');
+            } else {
+                console.log('Token bulunamadı');
+            }
+        } catch (error) {
+            console.error('Kullanıcı silinirken bir hata oluştu:', error);
+        }
+    };
 
     return (
         <div>
-            <UserTable users={users} />
+            <UserTable users={users} onDelete={handleDelete} />
         </div>
     );
 };

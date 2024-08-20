@@ -51,7 +51,7 @@ const Register = () => {
                 showToast("Kayıt Başarılı, Giriş Sayfasına Yönlendiriliyorsunuz");
                 setTimeout(() => {
                     navigate("/login");
-                }, 5000);
+                }, 2000);
             } catch (error) {
                 toast.warning("Kayıt sırasında bir hata oluştu.");
                 console.log("Hata", error);
