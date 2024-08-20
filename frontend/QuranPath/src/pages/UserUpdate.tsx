@@ -27,7 +27,7 @@ const roles: Role[] = [
 const UserUpdate = () => {
     const { id } = useParams<{ id: string; }>();
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
+    const [, setUser] = useState<User | null>(null);
     const [formData, setFormData] = useState<User | null>(null);
 
     useEffect(() => {
