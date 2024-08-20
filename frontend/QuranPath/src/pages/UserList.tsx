@@ -4,7 +4,7 @@ import UserTable from "../components/UserTable";
 import { API_BASE_URL } from "../apiConfig";
 
 interface User {
-    id: number;
+    appUserId: number;
     name: string;
     email: string;
     appRoleId: number;
@@ -26,6 +26,7 @@ const UserList = () => {
                     });
 
                     setUsers(response.data);
+
 
                 } else {
                     console.log('Token bulunamadı');

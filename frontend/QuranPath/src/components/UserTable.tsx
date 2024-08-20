@@ -1,19 +1,25 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
-    id: number;
     name: string;
     email: string;
     appRoleId: number;
+    appUserId: number;
     roleName?: string;
+    parentName?: string;
+    parentPhone?: string;
 }
 
 interface UserTableProps {
     users: User[];
+
 }
 
 const UserTable = ({ users }: UserTableProps) => {
+    const navigate = useNavigate();
 
     const getRoleName = (appRoleId: number) => {
         switch (appRoleId) {
@@ -27,6 +33,27 @@ const UserTable = ({ users }: UserTableProps) => {
                 return "Unknown";
         }
     };
+
+    const actionBodyTemplate = (rowData: User) => {
+
+        return (
+            <div className="flex justify-around">
+                <Button
+                    label="Güncelle"
+                    icon="pi pi-pencil"
+                    className="p-button-sm p-button-rounded p-button-success"
+                    onClick={() => navigate(`/user-update/${rowData.appUserId}`)}
+                />
+                <Button
+                    label="Sil"
+                    icon="pi pi-trash"
+                    className="p-button-sm p-button-rounded p-button-danger"
+
+                />
+            </div>
+        );
+    };
+
 
     return (
         <div className="flex flex-col items-center px-4">
@@ -46,6 +73,7 @@ const UserTable = ({ users }: UserTableProps) => {
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                             />
+
                             <Column
                                 field="email"
                                 header="Email"
@@ -70,6 +98,14 @@ const UserTable = ({ users }: UserTableProps) => {
                                 headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
                                 body={(rowData) => getRoleName(rowData.appRoleId)}
+                            />
+
+                            {/* Action Column for Update and Delete Buttons */}
+                            <Column
+                                header="Actions"
+                                headerClassName="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                bodyClassName="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b"
+                                body={actionBodyTemplate}
                             />
                         </DataTable>
                     </div>

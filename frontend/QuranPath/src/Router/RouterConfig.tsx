@@ -7,6 +7,7 @@ import About from '../pages/About';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import UserList from '../pages/UserList';
+import UserUpdate from '../pages/UserUpdate';
 
 
 
@@ -22,6 +23,7 @@ const RouterConfig = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/about-us" element={isLoggedIn ? <About /> : <Login />} />
             <Route path="/user-list" element={isAdmin ? <UserList /> : <Login />} />
+            <Route path="/user-update/:id" element={isAdmin ? <UserUpdate /> : <Login />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );
