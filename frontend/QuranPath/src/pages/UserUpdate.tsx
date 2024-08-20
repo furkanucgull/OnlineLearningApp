@@ -13,14 +13,24 @@ interface User {
     appRoleId: number;
 }
 
+interface Role {
+    id: number;
+    name: string;
+}
+
+const roles: Role[] = [
+    { id: 1, name: "Admin" },
+    { id: 2, name: "Member" },
+    { id: 3, name: "Visitor" }
+];
+
 const UserUpdate = () => {
-    const { id } = useParams<{ id: string; }>();
+    const { id } = useParams<{ id: string; }>(); // URL'den userId'yi al
     const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
     const [formData, setFormData] = useState<User | null>(null);
 
     useEffect(() => {
-        // Kullanıcıyı al ve formu doldur
         const fetchUser = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -43,7 +53,7 @@ const UserUpdate = () => {
         fetchUser();
     }, [id]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => prevState ? { ...prevState, [name]: value } : null);
     };
@@ -60,7 +70,10 @@ const UserUpdate = () => {
                         },
                     });
                     showToast('Kullanıcı başarıyla güncellendi');
-                    navigate('/user-list');
+                    setInterval(() => {
+
+                        navigate('/user-list');
+                    }, 1000);
                 } else {
                     console.log('Token bulunamadı');
                 }
@@ -122,6 +135,23 @@ const UserUpdate = () => {
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                         />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="appRoleId" className="block text-sm font-medium text-gray-700">Rol</label>
+                        <select
+                            id="appRoleId"
+                            name="appRoleId"
+                            value={formData.appRoleId}
+                            onChange={handleChange}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                        >
+                            {roles.map(role => (
+                                <option key={role.id} value={role.id}>
+                                    {role.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <button
