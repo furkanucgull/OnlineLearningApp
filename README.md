@@ -18,7 +18,9 @@ OnlineLearningApp is a platform that allows users to access various educational 
   - Back-end: Deployed on Azure.
 
 ## Installation
-
+#### Admin Login: 
+- email: eminroot@admin.com 
+- pass: admin@quran49
 ### Prerequisites
 
 - Node.js (v18.x.x or later)
